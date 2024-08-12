@@ -6,7 +6,7 @@ youtube video explaining how to set up: https://youtu.be/72fHCCgUGmg
 - dynamic.xyz docs: https://docs.dynamic.xyz/react-sdk/
 - zerodev.app docs: https://docs.zerodev.app/sdk/core-api/create-account
 
-steps: 
+steps:
 
 1. git clone repo
 
@@ -20,13 +20,13 @@ steps:
 
 easy.
 
-Here are the zerodev docs on how to configure using Dynamic as a signer - this starter repo is set up to use the native integration but you could also set it up using a custom integration with Dynamic's (EOA) signer: https://docs.zerodev.app/sdk/signers/dynamic 
+Here are the zerodev docs on how to configure using Dynamic as a signer - this starter repo is set up to use the native integration but you could also set it up using a custom integration with Dynamic's (EOA) signer: https://docs.zerodev.app/sdk/signers/dynamic
 
 # 🏗 Scaffold-ETH 2
 
 <h4 align="center">
   <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
+  <a href="https://scaffoldeth.io">Website</a>3
 </h4>
 
 🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
