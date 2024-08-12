@@ -1,14 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import SignerAddress from "./SignerAddress";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
+import { parseEther } from "viem";
+import { useAccount, useSendTransaction } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 const Home: NextPage = () => {
+  const { sendTransaction } = useSendTransaction();
   const { address } = useAccount();
 
   console.log(address);
+
+  async function submit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
+    sendTransaction({ to: "0x0c4Cb3C12F771dEB4C60C841c18CDea6057CE8c0", value: parseEther(".001") });
+  }
 
   return (
     <>
@@ -36,6 +45,12 @@ const Home: NextPage = () => {
             </code>
           </p>
         </div>
+
+        <form onSubmit={submit}>
+          <button type="submit">Submit</button>
+        </form>
+
+        <SignerAddress />
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
