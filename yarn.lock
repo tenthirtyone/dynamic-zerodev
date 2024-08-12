@@ -3842,9 +3842,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ~5.40.0
     "@uniswap/sdk-core": ~4.0.1
     "@uniswap/v2-sdk": ~3.0.1
-    "@zerodev/ecdsa-validator": ^5.3.1
-    "@zerodev/permissions": ^5.4.3
-    "@zerodev/sdk": ^5.1.14
+    "@zerodev/sdk": ^4.1.5
     autoprefixer: ~10.4.12
     blo: ~1.0.1
     daisyui: 4.5.0
@@ -3976,22 +3974,6 @@ __metadata:
   version: 2.0.0
   resolution: "@sideway/pinpoint@npm:2.0.0"
   checksum: 0f4491e5897fcf5bf02c46f5c359c56a314e90ba243f42f0c100437935daa2488f20482f0f77186bd6bf43345095a95d8143ecf8b1f4d876a7bc0806aba9c3d2
-  languageName: node
-  linkType: hard
-
-"@simplewebauthn/browser@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "@simplewebauthn/browser@npm:9.0.1"
-  dependencies:
-    "@simplewebauthn/types": ^9.0.1
-  checksum: eb7adcddf8b73c13c5551cc4ed4531135d2cb42947936b13c7c3b7d660fcf9b69f282a846aa2140d76db3d1c81d7502eaec5412fa51cd6ebe251882118ecac23
-  languageName: node
-  linkType: hard
-
-"@simplewebauthn/types@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "@simplewebauthn/types@npm:9.0.1"
-  checksum: 416dfd688eb706a680df4f0982c9ea32535664e015e3c63982f37d61d63a217d440268467658dc2af7bc7ed9d7ac532efb8e752fcc503a79c8e7dc27295ea81b
   languageName: node
   linkType: hard
 
@@ -6325,32 +6307,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zerodev/ecdsa-validator@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "@zerodev/ecdsa-validator@npm:5.3.1"
-  peerDependencies:
-    "@zerodev/sdk": ^5.2.1
-    permissionless: ^0.1.18
-    viem: ^2.16.3
-  checksum: a21c74be048e2afe6707bc6391c5bbcf61b1d9ce0c2ee7658e97d0e917b02256fd0357efb36e6ee0df941c1d58e80c3414eb0e9d8d47ff5d068ac3dc6cc11a1d
-  languageName: node
-  linkType: hard
-
-"@zerodev/permissions@npm:^5.4.3":
-  version: 5.4.3
-  resolution: "@zerodev/permissions@npm:5.4.3"
-  dependencies:
-    "@simplewebauthn/browser": ^9.0.1
-    merkletreejs: ^0.3.11
-  peerDependencies:
-    "@zerodev/sdk": ^5.2.13
-    "@zerodev/webauthn-key": ^5.3.0
-    permissionless: ^0.1.18
-    viem: ^2.16.3
-  checksum: 55e4825c214b43e36acc4459c3417e1fdc28161b12379c9819865d1154fd0134f2828e635d9ddbef76b0bf378d0027c201fe3b2466eb2669058a451bad234bc3
-  languageName: node
-  linkType: hard
-
 "@zerodev/sdk@npm:^4.1.5":
   version: 4.7.8
   resolution: "@zerodev/sdk@npm:4.7.8"
@@ -6362,18 +6318,6 @@ __metadata:
     merkletreejs: ^0.3.10
     viem: ^1.5.3
   checksum: f663a0333c10158eea74edb13d8256b69ddc20c6df06a8fc72cba32d1297815029849300712490f41a880b5839da87beec54ec3f13eb3eb9f8152060ad0db027
-  languageName: node
-  linkType: hard
-
-"@zerodev/sdk@npm:^5.1.14":
-  version: 5.3.8
-  resolution: "@zerodev/sdk@npm:5.3.8"
-  dependencies:
-    semver: ^7.6.0
-  peerDependencies:
-    permissionless: ^0.1.18
-    viem: ^2.16.3
-  checksum: 7fd839a73739a87473cf6ec6b3bf58f11a58fc674c96adde65f37631618c239b2d19de3c8ff52489295d04ff70af116fcd0b126c35397d23a53e4e84a2d8b739
   languageName: node
   linkType: hard
 
@@ -13514,7 +13458,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"merkletreejs@npm:^0.3.10, merkletreejs@npm:^0.3.11":
+"merkletreejs@npm:^0.3.10":
   version: 0.3.11
   resolution: "merkletreejs@npm:0.3.11"
   dependencies:
@@ -16677,7 +16621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.4, semver@npm:^7.6.0":
+"semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.4":
   version: 7.6.3
   resolution: "semver@npm:7.6.3"
   bin:
