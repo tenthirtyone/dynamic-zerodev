@@ -7,44 +7,33 @@ const SignerAddress = () => {
   const [signerAddress, setSignerAddress] = useState("");
 
   useEffect(() => {
+    async function _setSignerAddress(signerConnector: any) {
+      if (!signerConnector) {
+        return;
+      }
+
+      // This is the Dynamic EOA Wallet Client
+      const signer: any = await signerConnector.getWalletClient();
+
+      setSignerAddress(signer?.account?.address);
+    }
+
     if (!primaryWallet) {
       return;
     }
 
-    const {
-      connector,
-      //address, // This is your smart wallet address
-    } = primaryWallet;
+    const { connector } = primaryWallet;
 
     if (!isZeroDevConnector(connector)) {
       return;
     }
 
     const signerConnector = connector.getEOAConnector();
-    const ecdsaProvider: any = connector.getAccountAbstractionProvider();
-    if (ecdsaProvider) {
-    }
-    // ZeroDev ecdsaProvider
-    console.log("ecdsaProvider");
-    console.log(ecdsaProvider);
-    console.log(ecdsaProvider?.changeOwner);
-    console.log(ecdsaProvider?.getValidator());
-    const validator = ecdsaProvider?.getValidator();
-    console.log(validator);
 
-    if (!signerConnector) {
-      return;
-    }
-
-    // This is the signer address
-    //    const [address2] = signerConnector.getAddress();
-    (async () => {
-      const signer: any = await signerConnector.getWalletClient();
-
-      console.log(primaryWallet);
-      setSignerAddress(signer.account.address);
-    })();
+    _setSignerAddress(signerConnector);
   }, [primaryWallet]);
+
+  if (!signerAddress) return null;
 
   return <span>My Signer address: {signerAddress}</span>;
 };
