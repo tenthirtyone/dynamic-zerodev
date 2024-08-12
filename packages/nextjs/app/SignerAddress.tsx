@@ -21,10 +21,16 @@ const SignerAddress = () => {
     }
 
     const signerConnector = connector.getEOAConnector();
-    const ecdsaProvider = connector.getAccountAbstractionProvider();
-
+    const ecdsaProvider: any = connector.getAccountAbstractionProvider();
+    if (ecdsaProvider) {
+    }
+    // ZeroDev ecdsaProvider
     console.log("ecdsaProvider");
     console.log(ecdsaProvider);
+    console.log(ecdsaProvider?.changeOwner);
+    console.log(ecdsaProvider?.getValidator());
+    const validator = ecdsaProvider?.getValidator();
+    console.log(validator);
 
     if (!signerConnector) {
       return;
