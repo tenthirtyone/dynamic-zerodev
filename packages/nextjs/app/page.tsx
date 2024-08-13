@@ -1,23 +1,10 @@
 "use client";
 
-import Recovery from "./Recovery";
-import SignerAddress from "./SignerAddress";
 import type { NextPage } from "next";
-import { parseEther } from "viem";
-import { useAccount, useSendTransaction } from "wagmi";
+import ECDSAAddress from "~~/components/me/ECDSAAddress";
+import SignerAddress from "~~/components/me/SignerAddress";
 
 const Home: NextPage = () => {
-  const { sendTransaction } = useSendTransaction();
-  const { address } = useAccount();
-
-  console.log(address);
-
-  async function submit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    sendTransaction({ to: "0x0c4Cb3C12F771dEB4C60C841c18CDea6057CE8c0", value: parseEther(".001") });
-  }
-
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10">
@@ -35,13 +22,9 @@ const Home: NextPage = () => {
           </p>
         </div>
 
-        <form onSubmit={submit}>
-          <button type="submit">Submit</button>
-        </form>
-
         <SignerAddress />
 
-        <Recovery />
+        <ECDSAAddress />
       </div>
     </>
   );

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { isZeroDevConnector } from "@dynamic-labs/ethereum-aa";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
-const Recovery = () => {
+const ECDSAAddress = () => {
   const { primaryWallet } = useDynamicContext();
   const [ecdsaProvider, setECDSAProvider] = useState();
   const [smartAccountAddress, setSmartAccountAddress] = useState("");
@@ -44,4 +44,4 @@ const Recovery = () => {
   return <span>My Smart Account Address is: {smartAccountAddress} </span>;
 };
 
-export default Recovery;
+export default ECDSAAddress;
