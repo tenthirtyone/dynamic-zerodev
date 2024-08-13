@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { isZeroDevConnector } from "@dynamic-labs/ethereum-aa";
 import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-import { SimpleProvider } from "@zerodev/sdk";
+import { ECDSAProvider } from "@zerodev/sdk";
 
 const useECDSAProvider = () => {
   const { primaryWallet } = useDynamicContext();
-  const [ecdsaProvider, setECDSAProvider] = useState<SimpleProvider | null>(null);
+  const [ecdsaProvider, setECDSAProvider] = useState<ECDSAProvider | null>(null);
   const [smartAccountAddress, setSmartAccountAddress] = useState<string>("");
 
   useEffect(() => {
-    const _setSmartAccountAddress = async (_ecdsaProvider: SimpleProvider | null) => {
+    const _setSmartAccountAddress = async (_ecdsaProvider: ECDSAProvider | null) => {
       if (!_ecdsaProvider) {
         return;
       }
@@ -32,7 +32,7 @@ const useECDSAProvider = () => {
       return;
     }
 
-    const _ecdsaProvider = connector.getAccountAbstractionProvider() as SimpleProvider | null;
+    const _ecdsaProvider = connector.getAccountAbstractionProvider() as ECDSAProvider | null;
     setECDSAProvider(_ecdsaProvider);
     _setSmartAccountAddress(_ecdsaProvider);
   }, [primaryWallet]);

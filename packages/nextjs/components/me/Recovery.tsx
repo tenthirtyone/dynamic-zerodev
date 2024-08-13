@@ -1,47 +1,41 @@
-import { useEffect, useState } from "react";
-import { isZeroDevConnector } from "@dynamic-labs/ethereum-aa";
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
+import { RecoveryProvider } from "@zerodev/sdk";
+import useECDSAProvider from "~~/hooks/me/useECDSAProvider";
 
-const ECDSAAddress = () => {
-  const { primaryWallet } = useDynamicContext();
-  const [ecdsaProvider, setECDSAProvider] = useState();
-  const [smartAccountAddress, setSmartAccountAddress] = useState("");
+const Recovery = () => {
+  const { ecdsaProvider } = useECDSAProvider();
 
-  useEffect(() => {
-    async function _setSmartAccountAddress(_ecdsaProvider: any) {
-      if (!_ecdsaProvider) {
-        return;
-      }
+  async function enableRecovery() {
+    if (!ecdsaProvider || !process.env.NEXT_PUBLIC_ZERO_DEV_PROJECT_ID) return null;
 
-      // This is the Dynamic EOA Wallet Client
-      const address: any = await _ecdsaProvider.getAddress();
+    const guardianAddress = "0x0a07988692DDc771B3d9dEA68efcd43a65766f89";
 
-      setSmartAccountAddress(address);
-    }
+    const recoveryData = {
+      guardians: {
+        [guardianAddress]: 1,
+      },
+      threshold: 1,
+      delaySeconds: 0,
+    };
 
-    if (!primaryWallet) {
-      return;
-    }
+    const recoveryProvider = await RecoveryProvider.init({
+      projectId: process.env.NEXT_PUBLIC_ZERO_DEV_PROJECT_ID,
+      defaultProvider: ecdsaProvider,
+      opts: {
+        validatorConfig: {
+          ...recoveryData,
+        },
+      },
+    });
 
-    const { connector } = primaryWallet;
+    console.log(recoveryProvider);
 
-    if (!isZeroDevConnector(connector)) {
-      return;
-    }
+    //let result = await recoveryProvider.enableRecovery();
+    //await recoveryProvider.waitForUserOperationTransaction(result.hash as any);
+    //
+    //console.log("Recovery enabled");
+  }
 
-    const _ecdsaProvider: any = connector.getAccountAbstractionProvider();
-
-    setECDSAProvider(_ecdsaProvider);
-
-    // ZeroDev ecdsaProvider
-    console.log("ecdsaProvider");
-    console.log(_ecdsaProvider);
-    _setSmartAccountAddress(_ecdsaProvider);
-  }, [primaryWallet]);
-
-  if (!ecdsaProvider) return null;
-
-  return <span>My Smart Account Address is: {smartAccountAddress} </span>;
+  return <button onClick={enableRecovery}>Enable Recovery</button>;
 };
 
-export default ECDSAAddress;
+export default Recovery;
