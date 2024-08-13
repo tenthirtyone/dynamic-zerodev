@@ -6,7 +6,7 @@ import useECDSAProvider from "~~/hooks/me/useECDSAProvider";
 
 type EthereumAddress = `0x${string}`;
 
-const Recovery = () => {
+const EnableRecovery = () => {
   const { ecdsaProvider } = useECDSAProvider();
   const [guardianAddress, setGuardianAddress] = useState("0x0");
   const [_recoveryEnabled, setRecoveryEnabled] = useState(false);
@@ -59,4 +59,4 @@ const Recovery = () => {
   );
 };
 
-export default Recovery;
+export default EnableRecovery;
