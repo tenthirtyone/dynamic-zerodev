@@ -29,11 +29,14 @@ const Recovery = () => {
 
     console.log(recoveryProvider);
 
-    //let result = await recoveryProvider.enableRecovery();
-    //await recoveryProvider.waitForUserOperationTransaction(result.hash as any);
-    //
-    //console.log("Recovery enabled");
+    const result = await recoveryProvider.enableRecovery();
+    await recoveryProvider.waitForUserOperationTransaction(result.hash as any);
+
+    console.log("Recovery enabled");
   }
+
+  console.log("ecdsaProvider");
+  console.log(ecdsaProvider);
 
   return <button onClick={enableRecovery}>Enable Recovery</button>;
 };

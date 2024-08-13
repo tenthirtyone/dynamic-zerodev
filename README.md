@@ -10,13 +10,15 @@ Signup at [https://dashboard.zerodev.app/](https://dashboard.zerodev.app/) and [
 
 1. Under Configurations enable Account Abstraction, paste your ZeroDev Project Id from the ZeroDev dashboard.
 
-2. In Chains & Networks enable Sepoliato the .env file in `packages/nextjs`
+2. In Chains & Networks enable Sepolia
 
 3. Under Security enable cors from http://localhost:3000
 
 4. Under Log in & User Profile enable the authentication strategies you want to use.
 
 5. Under Developers > SDK & API Keys copy your environment id to the .env file in `packages/nextjs`
+
+6. Under Embedded Wallets > Wallet Transactions MFA enable Passkey and click the settings icon. Enable Required at Signup.
 
 ### Application
 
@@ -29,6 +31,8 @@ Signup at [https://dashboard.zerodev.app/](https://dashboard.zerodev.app/) and [
 1. Login with Email through the Dynamic Widget in the top right corner.
 
 Dynamic will create an EOA in Turnkey and calculate your deterministic Smart Account address. Your Smart Account address is the address in the dynamic widget.
+
+Enable a Passkey
 
 2. Acquire some Sepolia testnet ether, send it to your Smart Account address.
 

@@ -1,6 +1,7 @@
 "use client";
 
 import type { NextPage } from "next";
+import ChangeOwner from "~~/components/me/ChangeOwner";
 // import AccountRecovery from "~~/components/me/AccountRecovery";
 import ECDSAAddress from "~~/components/me/ECDSAAddress";
 import Recovery from "~~/components/me/Recovery";
@@ -29,6 +30,8 @@ const Home: NextPage = () => {
         <ECDSAAddress />
 
         <Recovery />
+
+        <ChangeOwner />
       </div>
     </>
   );
