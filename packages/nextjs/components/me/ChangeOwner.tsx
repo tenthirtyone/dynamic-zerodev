@@ -7,7 +7,7 @@ const ChangeOwner = () => {
     if (!ecdsaProvider || !process.env.NEXT_PUBLIC_ZERO_DEV_PROJECT_ID) return null;
 
     console.log("Changing Owner");
-    const retVal = await ecdsaProvider.changeOwner("0x9B2D984FF9946eC5255e5cf56A8cF24f413F3B0F");
+    const retVal = await ecdsaProvider.changeOwner("0x0a07988692DDc771B3d9dEA68efcd43a65766f89");
     console.log("retVal");
     console.log(retVal);
   }

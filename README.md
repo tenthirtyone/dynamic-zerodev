@@ -54,3 +54,5 @@ Dynamic does not directly implement the recovery features of the ZeroDev Kernel 
 Dynamic relies on v4 of the ZeroDev SDK [docs](https://docs-v4.zerodev.app/)
 
 We let Dynamic initialize the ZeroDev ECDSAProvider and then use the provider to interact directly with the recovery functions
+
+The Event emission for OwnerChanged in Etherscan incorrectly identifies the params as (address oldOwner, address newOwner, address sender). The correct params are (address kernel, address oldOwner, address sender).
