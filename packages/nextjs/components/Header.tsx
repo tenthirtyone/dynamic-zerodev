@@ -25,7 +25,11 @@ export const menuLinks: HeaderMenuLink[] = [
     href: "/guardians",
   },
   {
-    label: "Account Recovery",
+    label: "Initialize Recovery",
+    href: "/initialize",
+  },
+  {
+    label: "Recover Account",
     href: "/recovery",
   },
   {

@@ -1,21 +1,17 @@
 "use client";
 
+import Recovery from "./_components/Recovery";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import InitializeRecovery from "~~/app/recovery/_components/InitializeRecovery";
 
-const Recovery: NextPage = () => {
-  const { address } = useAccount();
-
-  console.log(address);
+const Recover: NextPage = () => {
   return (
     <>
       <div className="text-center mt-8 bg-secondary p-10">
-        <h1 className="text-4xl my-0">Recover Account</h1>
-        <InitializeRecovery />
+        <h1 className="text-4xl my-0">Account Recovery</h1>
+        <Recovery />
       </div>
     </>
   );
 };
 
-export default Recovery;
+export default Recover;

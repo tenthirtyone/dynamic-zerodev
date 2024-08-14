@@ -39,7 +39,21 @@ const InitializeRecovery = () => {
         onChange={e => setNewOwnerAddress(e.target.value as EthereumAddress)}
       />
       <br />
-      <button onClick={initializeRecovery}>Initialize Recovery</button>
+      <button
+        onClick={initializeRecovery}
+        style={{
+          backgroundColor: "#1a82ff",
+          color: "white",
+          fontSize: "16px",
+          padding: "10px 20px",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          transition: "background-color 0.3s",
+        }}
+      >
+        Initialize Recovery
+      </button>
       <br />
       Recovery Id:
       <p>{recoveryId}</p>
