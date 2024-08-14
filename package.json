@@ -45,8 +45,5 @@
     "tslib": "^2.6.3",
     "vercel": "~32.4.1"
   },
-  "packageManager": "yarn@3.2.3",
-  "dependencies": {
-    "@zerodev/recovery": "^0.0.5"
-  }
+  "packageManager": "yarn@3.2.3"
 }

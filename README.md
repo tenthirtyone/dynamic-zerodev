@@ -56,3 +56,7 @@ Dynamic relies on v4 of the ZeroDev SDK [docs](https://docs-v4.zerodev.app/)
 We let Dynamic initialize the ZeroDev ECDSAProvider and then use the provider to interact directly with the recovery functions
 
 The Event emission for OwnerChanged in Etherscan incorrectly identifies the params as (address oldOwner, address newOwner, address sender). The correct params are (address kernel, address oldOwner, address sender). This is because the Kernel contract/proxies are not verified but the OwnerChanged(address, address, address) function signature is defined and known and Etherscan is attempting to guess at correctness.
+
+Magic Eden Wallet needs to be able to support test networks to perform the signatures for recovery on test networks.
+
+The Kernel version is 2.4 (0xd9AB5096a832b9ce79914329DAEE236f8Eea0390 is the ECDSA Validator)

@@ -50,9 +50,19 @@ const Recovery = () => {
     });
 
     await guardianRecoveryProvider.signRecovery();
-    console.log("Signed");
-    await guardianRecoveryProvider.submitRecovery();
-    console.log("Submitted");
+
+    // https://github.com/zerodevapp/plugin-examples/blob/main/recovery/recovery.ts
+    // https://docs-v4.zerodev.app/use-wallets/recovery
+
+    // This throws "AccountSigner is not set", if you use the RecoveryProvider above, with the
+    // guardian signer, DynamicWidget crashes.
+    const submitterRecoveryProvider = await RecoveryProvider.init({
+      projectId: process.env.NEXT_PUBLIC_ZERO_DEV_PROJECT_ID,
+      recoveryId,
+    });
+
+    await submitterRecoveryProvider.submitRecovery();
+    //await submitterRecoveryProvider.waitForUserOperationTransaction(result.hash as any);
   }
 
   if (!signerAddress) return null;
@@ -63,7 +73,7 @@ const Recovery = () => {
       <br />
       <input
         type="text"
-        placeholder="Enter new owner address"
+        placeholder="Enter recovery id"
         value={recoveryId}
         onChange={e => setRecoveryId(e.target.value)}
       />

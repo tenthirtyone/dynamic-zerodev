@@ -6307,19 +6307,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@zerodev/recovery@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@zerodev/recovery@npm:0.0.5"
-  dependencies:
-    swr: ^2.2.4
-    zod: ^3.22.4
-  peerDependencies:
-    react: ^18.2.0
-    react-dom: ^18.2.0
-  checksum: b617be4a25d1818b67711cbd07fb26e08ad08a145bf021f29974a26a85ecbce68283c88b180990dc7c0adbc11a7d98eecb7a683d5d4986f42ad45c89256d6827
-  languageName: node
-  linkType: hard
-
 "@zerodev/sdk@npm:^4.1.5":
   version: 4.7.8
   resolution: "@zerodev/sdk@npm:4.7.8"
@@ -7909,7 +7896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"client-only@npm:0.0.1, client-only@npm:^0.0.1":
+"client-only@npm:0.0.1":
   version: 0.0.1
   resolution: "client-only@npm:0.0.1"
   checksum: 0c16bf660dadb90610553c1d8946a7fdfb81d624adea073b8440b7d795d5b5b08beb3c950c6a2cf16279365a3265158a236876d92bce16423c485c322d7dfaf8
@@ -16575,7 +16562,6 @@ __metadata:
   resolution: "se-2@workspace:."
   dependencies:
     "@types/node": ^22.2.0
-    "@zerodev/recovery": ^0.0.5
     husky: ~8.0.3
     lint-staged: ~13.2.2
     next: ~14.0.4
@@ -17600,18 +17586,6 @@ __metadata:
   version: 1.0.0
   resolution: "supports-preserve-symlinks-flag@npm:1.0.0"
   checksum: 53b1e247e68e05db7b3808b99b892bd36fb096e6fba213a06da7fab22045e97597db425c724f2bbd6c99a3c295e1e73f3e4de78592289f38431049e1277ca0ae
-  languageName: node
-  linkType: hard
-
-"swr@npm:^2.2.4":
-  version: 2.2.5
-  resolution: "swr@npm:2.2.5"
-  dependencies:
-    client-only: ^0.0.1
-    use-sync-external-store: ^1.2.0
-  peerDependencies:
-    react: ^16.11.0 || ^17.0.0 || ^18.0.0
-  checksum: c6e6a5bd254951b22e5fd0930a95c7f79b5d0657f803c41ba1542cd6376623fb70b1895049d54ddde26da63b91951ae9d62a06772f82be28c1014d421e5b7aa9
   languageName: node
   linkType: hard
 
@@ -19627,13 +19601,6 @@ __metadata:
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
-  languageName: node
-  linkType: hard
-
-"zod@npm:^3.22.4":
-  version: 3.23.8
-  resolution: "zod@npm:3.23.8"
-  checksum: 15949ff82118f59c893dacd9d3c766d02b6fa2e71cf474d5aa888570c469dbf5446ac5ad562bb035bf7ac9650da94f290655c194f4a6de3e766f43febd432c5c
   languageName: node
   linkType: hard
 
