@@ -47,16 +47,16 @@ Follow the comments in `Main.js` and `console.log`'s in the browser console afte
 
 ### Login to Dynamic:
 
-(https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic1.png)
+![login](https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic1.png)
 
 ### Run Example
 
-(https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic2.png)
+![run example](https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic2.png)
 
 ### Provide the Turnkey verification code (depends on your Dynamic Dashboard security configuration for transactional mfa)
 
-(https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic3.png)
+![tx mfa](https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic3.png)
 
 ### Watch Console for results
 
-(https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic4.png)
+![view results](https://raw.githubusercontent.com/tenthirtyone/dynamic-zerodev/main/imgs/dynamic4.png)
