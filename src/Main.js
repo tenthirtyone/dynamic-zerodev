@@ -1,5 +1,3 @@
-import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
-
 import {
   createKernelAccount,
   createZeroDevPaymasterClient,
@@ -181,7 +179,7 @@ const Main = () => {
         <p className="text-lg mb-16">
           Web3 login for <span className="text-blue-400">everyone</span>.
         </p>
-        <DynamicWidget />
+
         <button onClick={doRecovery}>Run Example</button>
       </div>
       <div className="flex mt-16 space-x-4 ">
