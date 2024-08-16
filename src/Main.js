@@ -1,16 +1,19 @@
 import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
+import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
 
 import {
   createKernelAccount,
   createZeroDevPaymasterClient,
   createKernelAccountClient,
 } from "@zerodev/sdk";
-import { ENTRYPOINT_ADDRESS_V07, bundlerActions } from "permissionless";
+import {
+  ENTRYPOINT_ADDRESS_V07,
+  bundlerActions,
+  walletClientToSmartAccountSigner,
+} from "permissionless";
 import {
   http,
   createPublicClient,
-  Hex,
-  toFunctionSelector,
   parseAbi,
   encodeFunctionData,
   zeroAddress,
@@ -28,13 +31,14 @@ import {
 import { KERNEL_V3_1 } from "@zerodev/sdk/constants";
 
 const Main = () => {
+  const { primaryWallet } = useDynamicContext();
   const publicClient = createPublicClient({
     transport: http(process.env.REACT_APP_BUNDLER_RPC, {
       timeout: 60_000,
     }),
   });
 
-  const oldSigner = privateKeyToAccount(generatePrivateKey());
+  //const oldSigner = privateKeyToAccount(generatePrivateKey());
   const newSigner = privateKeyToAccount(process.env.REACT_APP_PRIVATE_KEY);
   const guardian = privateKeyToAccount(generatePrivateKey());
 
@@ -43,9 +47,14 @@ const Main = () => {
     "function doRecovery(address _validator, bytes calldata _data)";
 
   const doRecovery = async () => {
+    const dynamicWalletClient =
+      await primaryWallet?.connector?.getWalletClient();
+    const smartAccountSigner = await walletClientToSmartAccountSigner(
+      dynamicWalletClient
+    );
     // A ZeroDev validator is the interface between the eoa/signer options
     const ecdsaValidator = await signerToEcdsaValidator(publicClient, {
-      signer: oldSigner,
+      signer: smartAccountSigner,
       entryPoint,
       kernelVersion: KERNEL_V3_1,
     });
