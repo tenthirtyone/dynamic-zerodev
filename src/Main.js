@@ -1,6 +1,3 @@
-import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
-import { useDynamicContext } from "@dynamic-labs/sdk-react-core";
-
 import {
   createKernelAccount,
   createZeroDevPaymasterClient,
@@ -10,6 +7,7 @@ import {
   ENTRYPOINT_ADDRESS_V07,
   bundlerActions,
   walletClientToSmartAccountSigner,
+  providerToSmartAccountSigner,
 } from "permissionless";
 import {
   http,
@@ -31,7 +29,6 @@ import {
 import { KERNEL_V3_1 } from "@zerodev/sdk/constants";
 
 const Main = () => {
-  const { primaryWallet } = useDynamicContext();
   const publicClient = createPublicClient({
     transport: http(process.env.REACT_APP_BUNDLER_RPC, {
       timeout: 60_000,
@@ -40,6 +37,7 @@ const Main = () => {
 
   // see `ecdsa-recovery` branch, interchangeable with smartAccountSigner below.
   //const oldSigner = privateKeyToAccount(generatePrivateKey());
+
   // Arbitrary new owner account
   const newSigner = privateKeyToAccount(generatePrivateKey());
   // Arbitrary account for recovery
@@ -50,10 +48,8 @@ const Main = () => {
     "function doRecovery(address _validator, bytes calldata _data)";
 
   const doRecovery = async () => {
-    const dynamicWalletClient =
-      await primaryWallet?.connector?.getWalletClient();
-    const smartAccountSigner = await walletClientToSmartAccountSigner(
-      dynamicWalletClient
+    const smartAccountSigner = await providerToSmartAccountSigner(
+      window.ethereum
     );
     // A ZeroDev validator is the interface between the eoa/signer options
     const ecdsaValidator = await signerToEcdsaValidator(publicClient, {
@@ -199,7 +195,7 @@ const Main = () => {
         <p className="text-lg mb-16">
           Web3 login for <span className="text-blue-400">everyone</span>.
         </p>
-        <DynamicWidget />
+
         <button
           onClick={doRecovery}
           style={{
