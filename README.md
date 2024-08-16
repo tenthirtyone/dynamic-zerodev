@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Start
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```javascript
+npm install
+npm run start
+```
 
-## Available Scripts
+1. Copy the `.env-example` to .env
 
-In the project directory, you can run:
+2. Signup at zeroDev and copy the project id, paymaster and bundler urls to the .env file
 
-### `npm start`
+Add a gas policy (ex. 1 ETH per minute), make sure your project is on Sepolia.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+3. Signup at Dynamic and copy your project id from their dashboard.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Enable Sepolia
 
-### `npm test`
+Enable http://localhost:3000 CORS origin
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. The `main` branch contains the dynamic signer example. The `ecdsa-recovery` branch contains a simpler example with a private key read from the .env file.
 
-### `npm run build`
+5. The example will send two transactions.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The first transaction will send 2 internal tx to the smart account address. One to create the Kernel Smart Account, set the owner to the dynamic/ecdsa account and create a guardian recovery address. The second to perform recovery
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Example Sepolia TX Hash: 0xab00fa580ce1ebe8280dc18fe0baf79ee76470afd75bbef8b41b6c91273c2e67
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The second transaction will send a benign UserOp from the new owner set by the guardian recovery.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Example Sepolia TX Hash: 0x469a1a282b58817e653438eb3a13f75409cf4bb69388f2160801de1da8c020f5

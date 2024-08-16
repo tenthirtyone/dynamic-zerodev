@@ -38,8 +38,11 @@ const Main = () => {
     }),
   });
 
+  // see `ecdsa-recovery` branch, interchangeable with smartAccountSigner below.
   //const oldSigner = privateKeyToAccount(generatePrivateKey());
+  // Arbitrary new owner account
   const newSigner = privateKeyToAccount(process.env.REACT_APP_PRIVATE_KEY);
+  // Arbitrary account for recovery
   const guardian = privateKeyToAccount(generatePrivateKey());
 
   const entryPoint = ENTRYPOINT_ADDRESS_V07;
@@ -92,6 +95,7 @@ const Main = () => {
       entryPoint,
     });
 
+    // This is the counterfactual Smart Account client.
     const kernelClient = createKernelAccountClient({
       account,
       chain: sepolia,
@@ -105,6 +109,8 @@ const Main = () => {
     });
 
     console.log("performing recovery...");
+
+    // This is the second internal tx, the recovery operation.
     const userOpHash = await kernelClient.sendUserOperation({
       userOperation: {
         callData: encodeFunctionData({
@@ -120,6 +126,7 @@ const Main = () => {
 
     console.log("recovery userOp hash:", userOpHash);
 
+    // The bundler/offchain mempool will send the transaction to the entry point
     const bundlerClient = kernelClient.extend(bundlerActions(entryPoint));
     const { receipt } = await bundlerClient.waitForUserOperationReceipt({
       hash: userOpHash,
@@ -129,6 +136,7 @@ const Main = () => {
     console.log("recovery completed!");
     console.log(`tx hash: ${receipt.transactionHash}`);
 
+    // This is the beginning of the second transaction, the new owner will send a benign transaction
     const newEcdsaValidator = await signerToEcdsaValidator(publicClient, {
       signer: newSigner,
       entryPoint,
@@ -159,6 +167,7 @@ const Main = () => {
     console.log(newKernelClient);
 
     console.log("sending userOp with new signer");
+    // Send a 0 amount to the Zero Address with empty data, a benign tx to demonstrate the new owner
     const userOpHash2 = await newKernelClient.sendUserOperation({
       userOperation: {
         callData: await newAccount.encodeCallData({
@@ -191,7 +200,17 @@ const Main = () => {
           Web3 login for <span className="text-blue-400">everyone</span>.
         </p>
         <DynamicWidget />
-        <button onClick={doRecovery}>Run Example</button>
+        <button
+          onClick={doRecovery}
+          style={{
+            backgroundColor: "#008844",
+            color: "white",
+            padding: "10px 20px",
+            margin: "10px 20px",
+          }}
+        >
+          Run Example
+        </button>
       </div>
       <div className="flex mt-16 space-x-4 ">
         <a
