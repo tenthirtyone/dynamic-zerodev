@@ -41,7 +41,7 @@ const Main = () => {
   // see `ecdsa-recovery` branch, interchangeable with smartAccountSigner below.
   //const oldSigner = privateKeyToAccount(generatePrivateKey());
   // Arbitrary new owner account
-  const newSigner = privateKeyToAccount(process.env.REACT_APP_PRIVATE_KEY);
+  const newSigner = privateKeyToAccount(generatePrivateKey());
   // Arbitrary account for recovery
   const guardian = privateKeyToAccount(generatePrivateKey());
 
