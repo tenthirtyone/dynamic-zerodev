@@ -1,3 +1,9 @@
+# Overview
+
+This repo provides an example for launching a ZeroDev smart account (Kernel v3.1) and UserOp signing examples for Dynamic Labs (`main` branch) and an ECDSA key (`ecdsa-recovery` branch).
+
+App Scaffold is from: https://github.com/dynamic-labs/react-viem
+
 # Start
 
 ```javascript
@@ -9,19 +15,21 @@ npm run start
 
 2. Signup at zeroDev and copy the project id, paymaster and bundler urls to the .env file
 
-Add a gas policy (ex. 1 ETH per minute), make sure your project is on Sepolia.
+- Add a gas policy (ex. 1 ETH per minute), make sure your project is on Sepolia.
 
-3. Signup at Dynamic and copy your project id from their dashboard.
+3.  Signup at Dynamic and copy your project id from their dashboard.
 
-Enable Sepolia
+    - Enable Sepolia
 
-Enable http://localhost:3000 CORS origin
+    - Enable http://localhost:3000 CORS origin
 
-4. The `main` branch contains the dynamic signer example. The `ecdsa-recovery` branch contains a simpler example with a private key read from the .env file.
+4.  The `main` branch contains the dynamic signer example. The `ecdsa-recovery` branch contains a simpler example with a private key read from the .env file.
 
-5. The example will send two transactions.
+5.  The example will send two transactions.
 
-The first transaction will send 2 internal tx to the smart account address. One to create the Kernel Smart Account, set the owner to the dynamic/ecdsa account and create a guardian recovery address. The second to perform recovery
+        The first transaction will send 2 internal tx to the smart account address.
+
+    One to create the Kernel Smart Account, set the owner to the dynamic/ecdsa account and create a guardian recovery address. The second to perform recovery
 
 Example Sepolia TX Hash: 0xab00fa580ce1ebe8280dc18fe0baf79ee76470afd75bbef8b41b6c91273c2e67
 
