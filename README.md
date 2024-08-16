@@ -1,6 +1,10 @@
 # Overview
 
-This repo provides an example for launching a ZeroDev smart account (Kernel v3.1) and UserOp signing examples for Dynamic Labs (`main` branch) and an ECDSA key (`ecdsa-recovery` branch).
+This repo provides an examples for launching a ZeroDev smart account (Kernel v3.1) and signing using:
+
+- UserOp signing examples for Dynamic Labs (`main` branch)
+- an ECDSA key (`ecdsa-recovery` branch)
+- an EIP 1193 wallet (`eoa-wallet`)
 
 App Scaffold is from: https://github.com/dynamic-labs/react-viem
 
