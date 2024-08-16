@@ -1,6 +1,174 @@
 import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 
+import {
+  createKernelAccount,
+  createZeroDevPaymasterClient,
+  createKernelAccountClient,
+} from "@zerodev/sdk";
+import { ENTRYPOINT_ADDRESS_V07, bundlerActions } from "permissionless";
+import {
+  http,
+  createPublicClient,
+  Hex,
+  toFunctionSelector,
+  parseAbi,
+  encodeFunctionData,
+  zeroAddress,
+} from "viem";
+import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
+import { sepolia } from "viem/chains";
+import {
+  createWeightedECDSAValidator,
+  getRecoveryAction,
+} from "@zerodev/weighted-ecdsa-validator";
+import {
+  getValidatorAddress,
+  signerToEcdsaValidator,
+} from "@zerodev/ecdsa-validator";
+import { KERNEL_V3_1 } from "@zerodev/sdk/constants";
+
 const Main = () => {
+  const publicClient = createPublicClient({
+    transport: http(process.env.REACT_APP_BUNDLER_RPC, {
+      timeout: 60_000,
+    }),
+  });
+
+  const oldSigner = privateKeyToAccount(generatePrivateKey());
+  const newSigner = privateKeyToAccount(process.env.REACT_APP_PRIVATE_KEY);
+  const guardian = privateKeyToAccount(generatePrivateKey());
+
+  const entryPoint = ENTRYPOINT_ADDRESS_V07;
+  const recoveryExecutorFunction =
+    "function doRecovery(address _validator, bytes calldata _data)";
+
+  const doRecovery = async () => {
+    // A ZeroDev validator is the interface between the eoa/signer options
+    const ecdsaValidator = await signerToEcdsaValidator(publicClient, {
+      signer: oldSigner,
+      entryPoint,
+      kernelVersion: KERNEL_V3_1,
+    });
+
+    // As ecdsaValidator, except this account will be used for the recovery action
+    // multiple guardians can be set on an account with there own respective weights.
+    // To perform recovery the combined guardian weight must cross the threshold value.
+    const guardianValidator = await createWeightedECDSAValidator(publicClient, {
+      entryPoint,
+      config: {
+        threshold: 100,
+        signers: [{ address: guardian.address, weight: 100 }],
+      },
+      signers: [guardian],
+      kernelVersion: KERNEL_V3_1,
+    });
+
+    // This is the counterfactual Kernel Smart Account.
+    // account.address represents the determinstic counterfactual on-chain address.
+    const account = await createKernelAccount(publicClient, {
+      entryPoint,
+      plugins: {
+        sudo: ecdsaValidator,
+        regular: guardianValidator,
+        action: getRecoveryAction(entryPoint),
+      },
+      kernelVersion: KERNEL_V3_1,
+    });
+
+    const paymasterClient = createZeroDevPaymasterClient({
+      chain: sepolia,
+      transport: http(process.env.REACT_APP_PAYMASTER_RPC, {
+        timeout: 60_000,
+      }),
+      entryPoint,
+    });
+
+    const kernelClient = createKernelAccountClient({
+      account,
+      chain: sepolia,
+      entryPoint,
+      bundlerTransport: http(process.env.REACT_APP_BUNDLER_RPC, {
+        timeout: 60_000,
+      }),
+      middleware: {
+        sponsorUserOperation: paymasterClient.sponsorUserOperation,
+      },
+    });
+
+    console.log("performing recovery...");
+    const userOpHash = await kernelClient.sendUserOperation({
+      userOperation: {
+        callData: encodeFunctionData({
+          abi: parseAbi([recoveryExecutorFunction]),
+          functionName: "doRecovery",
+          args: [
+            getValidatorAddress(entryPoint, KERNEL_V3_1),
+            newSigner.address,
+          ],
+        }),
+      },
+    });
+
+    console.log("recovery userOp hash:", userOpHash);
+
+    const bundlerClient = kernelClient.extend(bundlerActions(entryPoint));
+    const { receipt } = await bundlerClient.waitForUserOperationReceipt({
+      hash: userOpHash,
+      timeout: 60_000,
+    });
+
+    console.log("recovery completed!");
+    console.log(`tx hash: ${receipt.transactionHash}`);
+
+    const newEcdsaValidator = await signerToEcdsaValidator(publicClient, {
+      signer: newSigner,
+      entryPoint,
+      kernelVersion: KERNEL_V3_1,
+    });
+
+    const newAccount = await createKernelAccount(publicClient, {
+      deployedAccountAddress: account.address,
+      entryPoint,
+      plugins: {
+        sudo: newEcdsaValidator,
+      },
+      kernelVersion: KERNEL_V3_1,
+    });
+
+    const newKernelClient = createKernelAccountClient({
+      entryPoint,
+      account: newAccount,
+      chain: sepolia,
+      bundlerTransport: http(process.env.REACT_APP_BUNDLER_RPC, {
+        timeout: 60_000,
+      }),
+      middleware: {
+        sponsorUserOperation: paymasterClient.sponsorUserOperation,
+      },
+    });
+
+    console.log(newKernelClient);
+
+    console.log("sending userOp with new signer");
+    const userOpHash2 = await newKernelClient.sendUserOperation({
+      userOperation: {
+        callData: await newAccount.encodeCallData({
+          to: zeroAddress,
+          value: 0n,
+          data: "0x",
+        }),
+      },
+    });
+    console.log("userOp hash:", userOpHash2);
+
+    const { receipt: receipt2 } =
+      await bundlerClient.waitForUserOperationReceipt({
+        hash: userOpHash2,
+        timeout: 60_000,
+      });
+    console.log("userOp completed!");
+    console.log(`tx hash: ${receipt2.transactionHash}`);
+  };
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black flex flex-col items-center justify-center text-white">
       <div className="flex flex-col items-center justify-center text-center">
@@ -14,6 +182,7 @@ const Main = () => {
           Web3 login for <span className="text-blue-400">everyone</span>.
         </p>
         <DynamicWidget />
+        <button onClick={doRecovery}>Run Example</button>
       </div>
       <div className="flex mt-16 space-x-4 ">
         <a
